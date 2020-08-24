@@ -25,14 +25,14 @@ parser = argparse.ArgumentParser(description='Manage rules')
 
 parser.add_argument('-c', '--count', type=int,
                      action='store', 
-                     required=True)
+                     required=True, dest='count')
 
 parser.add_argument('-fc', '--failed-count', type=int,
                      action='store', 
-                     required=True)
+                     required=True, dest='failed')
 
 parser.add_argument('-m', '--mode', 
-                     action='store', choices={'debug,help'})
+                     action='store', choices={'debug','help'}, dest='mode')
 
 args = parser.parse_args()
 
@@ -64,6 +64,10 @@ if (args.count>1):
           print(sysTrace)
           print(pingParsing)
 
-if (args.mode!="debug"):
+if args.mode == 'debug':
       print("DEBUGGING MODE")
-      debug=os.system(f'ping ')
+      debug=os.system(f'ping -c {args.count} -d google.com')
+      print(debug)
+else:
+      print("MANUAL")
+      help=os.system(f'ping -h')      
