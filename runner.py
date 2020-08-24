@@ -31,6 +31,9 @@ parser.add_argument('-fc', '--failed-count',
                      action='store', 
                      required=True, dest=failed)
 
+parser.add_argument('-m', '--mode', 
+                     action='store', choices={'debug,help'}, dest=mode)
+
 args = parser.parse_args()
 
 #add rules ---- check if count is valid
@@ -60,3 +63,7 @@ if (args.count>1):
           pingParsing = os.system(f'pingparsing google.com -c {args.count}')
           print(sysTrace)
           print(pingParsing)
+
+if (args.mode!="debug"):
+      print("DEBUGGING MODE")
+      debug=os.system(f'ping ')
