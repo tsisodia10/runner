@@ -48,19 +48,8 @@ def check_count():
           # --- Success tracing
           success_tracing()
       else: 
-          # --- while failed count is less than 2, it will execute till condition become false
-          while args.failed >= 2:
-            exitCode = os.system(f'ping -c {args.count} google.com')
-          # --- Failed execution tracing
-          print("ExitCode ----- \n",exitCode)
-          print("Tracing memory usage of failed execution -----------------------------------------------------------\n")
-          # --- using strace for system tracing
-          sysTrace = os.system(f'strace ping -c {args.count} google.com')
-          print("Tracing Failed execution -----------------------------------------------------------\n")
-          pingParsing = os.system(f'pingparsing google.com -c {args.count}')
-          print(sysTrace)
-          print(pingParsing)
-
+          error_tracing()
+         
 if args.mode == 'debug':
       print("DEBUGGING MODE")
       debug=os.system(f'ping -c {args.count} -d google.com')
@@ -78,6 +67,21 @@ def success_tracing():
       print(pingParsing)
       print(debug)
       
+def error_tracing():
+      # --- while failed count is less than 2, it will execute till condition become false
+      while args.failed < 2:
+            exitCode = os.system(f'ping -c {args.count} google.com')
+            args.failed = args.failed+1
+          
+      print("ExitCode ----- \n",exitCode)
+          
+      print("Tracing memory usage of failed execution -----------------------------------------------------------\n")
+      sysTrace = os.system(f'strace ping -c {args.count} google.com')
+      print("Tracing Failed execution -----------------------------------------------------------\n")
+      pingParsing = os.system(f'pingparsing google.com -c {args.count}')
+      print(sysTrace)
+      print(pingParsing)
+
 
 def main():
         check_count()
