@@ -37,7 +37,8 @@ parser.add_argument('-m', '--mode',
 args = parser.parse_args()
 
 #add rules ---- check if count is valid
-if (args.count>1):
+def check_count():
+  if (args.count>1):
       print("Count -",sys.argv)
 
       # --- execute ping command with -c 
@@ -45,11 +46,7 @@ if (args.count>1):
       if exitCode == 0:
           print("Success")
           # --- Success tracing
-          print("Tracing Successful execution --------------------------------------------------------\n")
-          pingParsing = os.system(f'pingparsing google.com -c {args.count}')
-          debug = os.system(f'ping -c {args.count} -d google.com ')
-          print(pingParsing)
-          print(debug)
+          success_tracing()
       else: 
           # --- while failed count is less than 2, it will execute till condition become false
           while args.failed >= 2:
@@ -72,3 +69,19 @@ else:
       print("MANUAL")
       help=os.system(f'ping -h')     
       print(help) 
+
+
+def success_tracing():
+      print("Tracing Successful execution --------------------------------------------------------\n")
+      pingParsing = os.system(f'pingparsing google.com -c {args.count}')
+      debug = os.system(f'ping -c {args.count} -d google.com ')
+      print(pingParsing)
+      print(debug)
+      
+
+def main():
+        check_count()
+        # uname_func()
+        #disk_func()
+       
+main()
