@@ -60,21 +60,21 @@ if args.mode == 'help':
       help=os.system(f'ping -h')     
       print(help) 
 
-
+# --- function which displays tracing for successful execution
 def success_tracing():
       print("Tracing Successful execution --------------------------------------------------------\n")
       pingParsing = os.system(f'pingparsing google.com -c {args.count}')
+      sysTrace = os.system(f'strace ping -c {args.count} google.com')
       print(pingParsing)
+      print(sysTrace)
       
-      
+# --- function whih displays tracing for failed execution      
 def error_tracing():
       # --- while failed count is less than 2, it will execute till condition become false
       while args.failed < 2:
             exitCode = os.system(f'ping -c {args.count} google.com')
-            args.failed = args.failed+1
-          
-      print("ExitCode ----- \n",exitCode)
-          
+            args.failed = args.failed+1   
+      print("ExitCode ----- \n",exitCode)   
       print("Tracing memory usage of failed execution -----------------------------------------------------------\n")
       sysTrace = os.system(f'strace ping -c {args.count} google.com')
       print("Tracing Failed execution -----------------------------------------------------------\n")
