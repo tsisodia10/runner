@@ -23,16 +23,16 @@ import sys
 
 parser = argparse.ArgumentParser(description='Manage rules')
 
-parser.add_argument('-c', '--count', 
-                     metavar='count', action='count', 
-                     required=True, add_help=True, dest=count)
-
-parser.add_argument('-fc', '--failed-count', 
+parser.add_argument('-c', '--count', type=int,
                      action='store', 
-                     required=True, dest=failed)
+                     required=True)
+
+parser.add_argument('-fc', '--failed-count', type=int,
+                     action='store', 
+                     required=True)
 
 parser.add_argument('-m', '--mode', 
-                     action='store', choices={'debug,help'}, dest=mode)
+                     action='store', choices={'debug,help'})
 
 args = parser.parse_args()
 
