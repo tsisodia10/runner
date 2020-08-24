@@ -54,7 +54,8 @@ if args.mode == 'debug':
       print("DEBUGGING MODE")
       debug=os.system(f'ping -c {args.count} -d google.com')
       print(debug)
-else:
+
+if args.mode == 'help':
       print("MANUAL")
       help=os.system(f'ping -h')     
       print(help) 
@@ -63,9 +64,8 @@ else:
 def success_tracing():
       print("Tracing Successful execution --------------------------------------------------------\n")
       pingParsing = os.system(f'pingparsing google.com -c {args.count}')
-      debug = os.system(f'ping -c {args.count} -d google.com ')
       print(pingParsing)
-      print(debug)
+      
       
 def error_tracing():
       # --- while failed count is less than 2, it will execute till condition become false
