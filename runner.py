@@ -14,3 +14,15 @@
 #       VERSION:  1.0
 #       CREATED:  08/21/2020
 # ===============================================================================
+
+import argparse
+import os
+import subprocess
+import sys
+
+
+parser = argparse.ArgumentParser(description='Manage rules')
+
+parser.add_argument('-c', '--count', 
+                     metavar='count', action='count', 
+                     required=True, add_help=True, dest=count)
