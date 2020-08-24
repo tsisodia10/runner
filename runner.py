@@ -70,4 +70,5 @@ if args.mode == 'debug':
       print(debug)
 else:
       print("MANUAL")
-      help=os.system(f'ping -h')      
+      help=os.system(f'ping -h')     
+      print(help) 
