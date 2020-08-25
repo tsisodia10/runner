@@ -90,7 +90,7 @@ def success_tracing():
       debug=os.system(f'ping -c {args.count} -d google.com')
       print(debug)
 
-
+      # --- help mode
       if args.mode == 'help':
           print("MANUAL")
       help=os.system(f'ping -h')     
@@ -118,12 +118,25 @@ def error_tracing():
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
                                 universal_newlines=True)
-      print("Use the debug mode to trace errors : usage : ping -d")
       print(sysTrace)
       print(pingParsing)
       print(netTrace)
+      print("Use the debug mode to trace errors : usage : ping -d")
+      
+      # --- debug mode
+      if args.mode == 'debug':
+          print("DEBUGGING MODE")
+      debug=os.system(f'ping -c {args.count} -d google.com')
+      print(debug)
+
+      # --- help mode
+      if args.mode == 'help':
+          print("MANUAL")
+      help=os.system(f'ping -h')     
+      print(help)
 
 
+# --- main function
 def main():
         check_count()
        
