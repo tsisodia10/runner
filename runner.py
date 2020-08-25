@@ -38,7 +38,7 @@ args = parser.parse_args()
 
 #add rules ---- check if count is valid
 def check_count():
-  if (args.count>1):
+  if (args.count>0):
       print("Count -",sys.argv)
 
       # --- execute ping command with -c 
@@ -65,8 +65,9 @@ def success_tracing():
       print("Tracing Successful execution --------------------------------------------------------\n")
       pingParsing = os.system(f'pingparsing google.com -c {args.count}')
       sysTrace = os.system(f'strace ping -c {args.count} google.com')
-      print(pingParsing)
       print(sysTrace)
+      print(pingParsing)
+      
       
 # --- function whih displays tracing for failed execution      
 def error_tracing():
@@ -74,18 +75,22 @@ def error_tracing():
       while args.failed < 2:
             exitCode = os.system(f'ping -c {args.count} google.com')
             args.failed = args.failed+1   
-      print("ExitCode ----- \n",exitCode)   
+      # print("ExitCode ----- \n",exitCode)   
       print("Tracing memory usage of failed execution -----------------------------------------------------------\n")
       sysTrace = os.system(f'strace ping -c {args.count} google.com')
       print("Tracing Failed execution -----------------------------------------------------------\n")
       pingParsing = os.system(f'pingparsing google.com -c {args.count}')
+      netTrace = subprocess.run(['netstat','ping','-s','google.com'],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE,
+                                universal_newlines=True)
+      print("Use the debug mode to trace errors : usage : ping -d")
       print(sysTrace)
       print(pingParsing)
+      print(netTrace)
 
 
 def main():
         check_count()
-        # uname_func()
-        #disk_func()
        
 main()
