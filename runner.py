@@ -36,49 +36,83 @@ parser.add_argument('-m', '--mode',
 
 args = parser.parse_args()
 
-#add rules ---- check if count is valid
+
+# --- add rules 
 def check_count():
-  if (args.count>0):
-      print("Count -",sys.argv)
-
+      num = 0
       # --- execute ping command with -c 
-      exitCode = os.system(f'ping -c {args.count} google.com')
-      if exitCode == 0:
-          print("Success")
-          # --- Success tracing
-          success_tracing()
-      else: 
-          error_tracing()
-         
-if args.mode == 'debug':
-      print("DEBUGGING MODE")
-      debug=os.system(f'ping -c {args.count} -d google.com')
-      print(debug)
+      while num < args.count:
+        
+          process = subprocess.run('ping -c 2 google.com', shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)      
+          print('Returncode: ', process.returncode)  
+          print('Have {} bytes in stdout:\n{}'.format(
+                len(process.stdout),
+                process.stdout.decode('utf-8'))
+          )    
+          print('Have {} bytes in stderr: {!r}'.format(
+                len(process.stderr),
+                process.stderr.decode('utf-8'))
+          )              
 
-if args.mode == 'help':
-      print("MANUAL")
-      help=os.system(f'ping -h')     
-      print(help) 
+        
+          num = num + 1
+          if process.returncode == 0:
+             print("Success")
+             # --- Success tracing
+             success_tracing()
+          else: 
+             error_tracing()
+         
+# if args.mode == 'debug':
+#       print("DEBUGGING MODE")
+#       debug=os.system(f'ping -c {args.count} -d google.com')
+#       print(debug)
+
+# if args.mode == 'help':
+#       print("MANUAL")
+#       help=os.system(f'ping -h')     
+#       print(help) 
 
 # --- function which displays tracing for successful execution
 def success_tracing():
-      print("Tracing Successful execution --------------------------------------------------------\n")
+      print("\n\nTRACING SUCCESSFUL EXECUTION -------------------------------------\n")
       pingParsing = os.system(f'pingparsing google.com -c {args.count}')
+      print("\n\nMEMORY AND DISK USAGE --------------------------------------------\n")
       sysTrace = os.system(f'strace ping -c {args.count} google.com')
       print(sysTrace)
       print(pingParsing)
+
+      # --- debug mode
+      if args.mode == 'debug':
+          print("DEBUGGING MODE")
+      debug=os.system(f'ping -c {args.count} -d google.com')
+      print(debug)
+
+
+      if args.mode == 'help':
+          print("MANUAL")
+      help=os.system(f'ping -h')     
+      print(help) 
       
       
 # --- function whih displays tracing for failed execution      
 def error_tracing():
+      
+      # --- numc - variable flag
+      numc = 0
+      
       # --- while failed count is less than 2, it will execute till condition become false
-      while args.failed < 2:
-            exitCode = os.system(f'ping -c {args.count} google.com')
-            args.failed = args.failed+1   
-      # print("ExitCode ----- \n",exitCode)   
-      print("Tracing memory usage of failed execution -----------------------------------------------------------\n")
+      while numc < args.failed:
+            process = subprocess.run('ping -c 2 google.com', shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE) 
+            numc = numc + 1   
+      print("Returncode : \n",process.returncode)   
+      print("TRACING MEMORY USAGE OF FAILED EXECUTION--------------------------------\n")
       sysTrace = os.system(f'strace ping -c {args.count} google.com')
-      print("Tracing Failed execution -----------------------------------------------------------\n")
+      print("TRACING FAILED EXECUTION------------------------------------------------\n")
       pingParsing = os.system(f'pingparsing google.com -c {args.count}')
       netTrace = subprocess.run(['netstat','ping','-s','google.com'],
                                 stdout=subprocess.PIPE,
