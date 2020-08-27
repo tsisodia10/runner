@@ -73,7 +73,6 @@ def success_tracing():
 
       # --- execute ping and parse the result
       pingParsing = os.system(f'pingparsing google.com -c {args.count}')
-
       print("\n\nMEMORY AND DISK USAGE --------------------------------------------\n")
 
       # --- memory usage output
@@ -85,14 +84,14 @@ def success_tracing():
       # --- debug mode
       if args.mode == 'debug':
           print("DEBUGGING MODE")
-      debug=os.system(f'ping -c {args.count} -d google.com')
-      print(debug)
+          debug=os.system(f'ping -c {args.count} -d google.com')
+          print(debug)
 
       # --- help mode
       if args.mode == 'help':
           print("MANUAL")
-      help=os.system(f'ping -h')     
-      print(help) 
+          help=os.system(f'ping -h')     
+          print(help) 
       
       
 # --- function whih displays tracing for failed execution      
@@ -107,7 +106,7 @@ def error_tracing():
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE) 
             numc = numc + 1   
-            
+
       print("Returncode : \n",process.returncode)   
       print("TRACING MEMORY USAGE OF FAILED EXECUTION--------------------------------\n")
       sysTrace = os.system(f'strace ping -c {args.count} google.com')
@@ -125,14 +124,14 @@ def error_tracing():
       # --- debug mode
       if args.mode == 'debug':
           print("DEBUGGING MODE")
-      debug=os.system(f'ping -c {args.count} -d google.com')
-      print(debug)
+          debug=os.system(f'ping -c {args.count} -d google.com')
+          print(debug)
 
       # --- help mode
       if args.mode == 'help':
           print("MANUAL")
-      help=os.system(f'ping -h')     
-      print(help)
+          help=os.system(f'ping -h')     
+          print(help)
 
 
 # --- main function
