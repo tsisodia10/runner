@@ -1,3 +1,4 @@
 python>=3.6.8
+pingparsing=1.1.0
 pytest=6.0.1
 pytest-subprocess=1.0.0

@@ -40,7 +40,7 @@ args = parser.parse_args()
 # --- add rules 
 def check_count():
       num = 0
-      # --- execute ping command with -c 
+      # --- check and execute ping command with -c 
       while num < args.count:
         
           process = subprocess.run('ping -c 2 google.com', shell=True,
@@ -64,23 +64,21 @@ def check_count():
              success_tracing()
           else: 
              error_tracing()
-         
-# if args.mode == 'debug':
-#       print("DEBUGGING MODE")
-#       debug=os.system(f'ping -c {args.count} -d google.com')
-#       print(debug)
 
-# if args.mode == 'help':
-#       print("MANUAL")
-#       help=os.system(f'ping -h')     
-#       print(help) 
 
 # --- function which displays tracing for successful execution
 def success_tracing():
+
       print("\n\nTRACING SUCCESSFUL EXECUTION -------------------------------------\n")
+
+      # --- execute ping and parse the result
       pingParsing = os.system(f'pingparsing google.com -c {args.count}')
+
       print("\n\nMEMORY AND DISK USAGE --------------------------------------------\n")
+
+      # --- memory usage output
       sysTrace = os.system(f'strace ping -c {args.count} google.com')
+
       print(sysTrace)
       print(pingParsing)
 
@@ -109,6 +107,7 @@ def error_tracing():
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE) 
             numc = numc + 1   
+            
       print("Returncode : \n",process.returncode)   
       print("TRACING MEMORY USAGE OF FAILED EXECUTION--------------------------------\n")
       sysTrace = os.system(f'strace ping -c {args.count} google.com')
