@@ -30,6 +30,11 @@ b) For SSH  : git clone git@github.com:tsisodia10/runner.git
  pyhthon3 runner.py -c 2 -fc 2
 ```
 
+4) If you want to use the debug mode 
+```
+ python3 runner.py -c 2 -fc 1 -m=debug
+```
+
 ### CHALLENGES
 
 1) os.system() vs subprocess.run()
