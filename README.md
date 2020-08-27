@@ -8,3 +8,10 @@ A python script which wraps a command( say example : "ping" ) in our case and do
 4) -help   : This should show us the manual
 5) -strace : Strace is used for Disk and Memory tracing
 6) -pingparsing : It shows the system calls and transmitted packets in json format
+
+### REFERENCES 
+
+https://docs.python.org/3/library/argparse.html
+https://docs.python.org/3/library/subprocess.html
+https://www.geeksforgeeks.org/python-os-system-method/
+https://docs.python.org/3/library/os.html
