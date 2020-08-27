@@ -43,7 +43,7 @@ def check_count():
       # --- check and execute ping command with -c 
       while num < args.count:
         
-          process = subprocess.Popen('ping -c 2 google.com', shell=True,
+          process = subprocess.run('ping -c 2 google.com', shell=True,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)      
           print('Returncode: ', process.returncode)  
