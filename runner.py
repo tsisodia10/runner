@@ -37,13 +37,13 @@ parser.add_argument('-m', '--mode',
 args = parser.parse_args()
 
 
-# --- add rules 
+# --- check count and also checks the returncode - if it's success or failure 
 def check_count():
       num = 0
       # --- check and execute ping command with -c 
       while num < args.count:
         
-          process = subprocess.run('ping -c 2 google.com', shell=True,
+          process = subprocess.Popen('ping -c 2 google.com', shell=True,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)      
           print('Returncode: ', process.returncode)  
