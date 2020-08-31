@@ -76,7 +76,7 @@ def success_tracing():
       print("\n\nMEMORY AND DISK USAGE --------------------------------------------\n")
 
       # --- memory usage output
-      sysTrace = os.system(f'strace ping -c {args.count} google.com')
+      sysTrace = os.system(f'strace -c ping google.com')
 
       print(sysTrace)
       print(pingParsing)
