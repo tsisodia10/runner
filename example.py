@@ -43,14 +43,18 @@ class TestThreading(object):
       # --- check and execute ping command with -c 
       while num < args.count:
         
-      
+        
+          
+        def check_count():
           print("CALLING 1st process")
           process = subprocess.Popen(["ping","-c 2", "google.com"], 
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)  
             # output, errors = process.communicate()
           process.poll()
-
+          proc = process.pid
+          str_proc = str(proc)
+          print("Printing pid", proc)
           self.stdout, self.stderr = process.communicate()
           print(self.stdout)
           print(self.stderr)
@@ -68,9 +72,10 @@ class TestThreading(object):
 
           def sysTracing():
              print("Calling SYSTRACE process")   
-             sysTrace = subprocess.Popen(["strace", "-c", "ping", "google.com"], 
+             sysTrace = subprocess.Popen(["strace", "-p", str_proc], 
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
+
              output, errors = sysTrace.communicate()
              sysTrace.poll()     
              print(output)
@@ -88,7 +93,8 @@ class TestThreading(object):
           b.start()
           b.join()
           
-
+        a1 = threading.Thread(target=check_count, name='Thread-a1')
+        a1.start()
                         
 
 tr = TestThreading()
