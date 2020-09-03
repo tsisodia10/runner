@@ -39,12 +39,7 @@ class TestThreading(object):
 
 
  def run(self):
-      num = 0
-      # --- check and execute ping command with -c 
-      while num < args.count:
-        
-        
-          
+      
         def check_count():
           print("CALLING 1st process")
           process = subprocess.Popen(["ping","-c 2", "google.com"], 
