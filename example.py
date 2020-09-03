@@ -22,11 +22,6 @@ parser.add_argument('-m', '--mode',
 args = parser.parse_args()
 
 
-import time
-
-import threading
-
-
 class TestThreading(object):
 
  # --- check count and also checks the returncode - if it's success or failure 
