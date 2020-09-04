@@ -36,6 +36,8 @@ parser.add_argument('-c', '--count', type=int,
 parser.add_argument('-m', '--mode', 
                      action='store', choices={'debug','help'}, dest='mode')
 
+parser.add_argument('--sys-trace', '--sys', 
+                     action='store', choices={'network','memory'}, dest='sys')
 
 args = parser.parse_args()
 
@@ -61,10 +63,10 @@ class TestThreading(object):
           process = subprocess.Popen(shlex.split(args.command), 
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
-          # output, errors = process.communicate()                           
-          
-          # print(output)
-          # print(errors)  
+          output, errors = process.communicate()                           
+          print(shlex.split(args.command))
+          print(output)
+          print(errors)  
           process.poll()
           proc = process.pid
           # str_proc = str(proc)
@@ -96,9 +98,16 @@ class TestThreading(object):
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
 
+             sysCommand = shlex.split(args.sys)
+             sysTrace1 = subprocess.Popen(["sudo","strace","-e", "trace=","sysCommand", "-p", str(proc)],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+             output1, errors1 = sysTrace1.communicate()                   
              output, errors = sysTrace.communicate()
              sysTrace.poll()  
-              
+
+             print(output1)
+             print(errors1) 
              print(output)
              print(errors) 
              time.sleep(0.2)             
