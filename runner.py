@@ -61,10 +61,10 @@ class TestThreading(object):
           process = subprocess.Popen(shlex.split(args.command), 
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
-          output, errors = process.communicate()                           
+          # output, errors = process.communicate()                           
           
-          print(output)
-          print(errors)  
+          # print(output)
+          # print(errors)  
           process.poll()
           proc = process.pid
           # str_proc = str(proc)
@@ -98,8 +98,7 @@ class TestThreading(object):
 
              output, errors = sysTrace.communicate()
              sysTrace.poll()  
-            #  print(sysTrace.stdout)
-            #  print(sysTrace.stderr)   
+              
              print(output)
              print(errors) 
              time.sleep(0.2)             
