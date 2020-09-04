@@ -42,30 +42,31 @@ class TestThreading(object):
 
  def run(self, timeout=0):
         num = 0
-          # --- check and execute ping command with -c   
+        
+        # --- check and execute ping command with -c   
         while num < args.count: 
           print("CALLING 1st process")
           process = subprocess.Popen(shlex.split(args.command), 
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
-          # output, errors = process.communicate()                           
-          returncode = process.returncode 
+          output, errors = process.communicate()                           
           
-          # print(output)
-          # print(errors)  
+          print(output)
+          print(errors)  
           process.poll()
           proc = process.pid
           # str_proc = str(proc)
           print("Printing pid", proc) 
           num = num + 1                   
           time.sleep(0.2)
-          if returncode == 0:                         
+
+          if process.returncode == 0:                         
             print("Successful execution")
           else:
             def netTracing():
              command = str(args.command)
              print("Calling NETSTAT process")
-             netTrace = subprocess.Popen(["ps", "-p", str(proc)], shell=True, 
+             netTrace = subprocess.Popen(["netstat", "-at", " | ", "grep", str(proc)],  
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
             #  print(netTrace.stdout)
@@ -79,7 +80,7 @@ class TestThreading(object):
 
             def sysTracing():
              print("Calling SYSTRACE process")  
-             sysTrace = subprocess.Popen(["sudo","strace", "-p", str(proc)],
+             sysTrace = subprocess.Popen(["sudo","strace","-s", "80", "-fp", str(proc)],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
 
@@ -92,6 +93,7 @@ class TestThreading(object):
              time.sleep(0.2)             
              print("SYSTRACE RUN FINISHED")   
 
+           
             a = threading.Thread(target=netTracing, name='Thread-a')
             print("NOW RUNNING NETSTAT")
             a.start()
@@ -101,6 +103,5 @@ class TestThreading(object):
             b.start()
             b.join()
           
-          
-                  
+               
 tr = TestThreading()
