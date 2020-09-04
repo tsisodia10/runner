@@ -1,19 +1,3 @@
-#!/usr/bin/env python3
-
-#
-#          FILE:  runner.py
-#
-#
-#   DESCRIPTION:  Manage rules
-#
-#       OPTIONS:  ---
-#  REQUIREMENTS:  ---
-#          BUGS:  ---
-#        AUTHOR:  Twinkll Sisodia
-#       COMPANY:  Red Hat
-#       VERSION:  1.0
-#       CREATED:  08/21/2020
-# ===============================================================================
 
 import argparse
 import os
@@ -32,6 +16,10 @@ parser.add_argument('-com', '--command',
 parser.add_argument('-c', '--count', type=int,
                      action='store', 
                      required=True, dest='count')
+
+# parser.add_argument('-fc', '--failed-count', type=int,
+#                      action='store', 
+#                      required=True, dest='failed')
 
 parser.add_argument('-m', '--mode', 
                      action='store', choices={'debug','help'}, dest='mode')
